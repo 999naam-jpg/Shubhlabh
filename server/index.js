@@ -6,7 +6,7 @@ const cors = require('cors')
 const path = require('path')
 
 const app = express()
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:4173', 'https://shubhlabh-xi.vercel.app'] }))
+app.use(cors())
 app.use(express.json({ limit: '10mb' }))
 
 // Serve uploaded images statically
