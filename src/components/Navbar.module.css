@@ -218,7 +218,7 @@
 }
 .bottomActive { color: #0ea5e9; border-bottom-color: #0ea5e9; }
 .bottomIcon { font-size: 1.2rem; line-height: 1; position: relative; display: block; }
-.bottomLabel { font-size: 0.58rem; white-space: nowrap; }
+.bottomLabel { font-size: 0.55rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 52px; text-align: center; }
 .bottomBadge {
   position: absolute;
   top: -3px; right: -5px;
