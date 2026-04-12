@@ -50,7 +50,7 @@ export default function Home() {
       for (const file of Array.from(files)) {
         const fd = new FormData()
         fd.append('image', file)
-        const res = await fetch('http://localhost:5000/api/upload', { method: 'POST', body: fd })
+        const res = await fetch('https://shubhlabh-production.up.railway.app/api/upload', { method: 'POST', body: fd })
         const { url } = await res.json()
         urls.push(url)
       }

@@ -13,7 +13,7 @@ export default function ImageUploader({ value, onChange }) {
     try {
       const formData = new FormData()
       formData.append('image', file)
-      const res = await fetch('http://localhost:5000/api/upload', {
+      const res = await fetch('https://shubhlabh-production.up.railway.app/api/upload', {
         method: 'POST',
         body: formData,
       })

@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:5000/api'
+const BASE = import.meta.env.VITE_API_URL || 'https://shubhlabh-production.up.railway.app/api'
 
 const req = async (method, path, body) => {
   const res = await fetch(`${BASE}${path}`, {

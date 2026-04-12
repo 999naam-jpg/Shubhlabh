@@ -88,7 +88,7 @@ function OrderCard({ order, reviews, submitReview, editReview, user, showToast }
       const orderId = `DECO-${Date.now()}`
       const total = parseInt(decoTotal) || 0
       const deposit = parseInt(decoDeposit) || 0
-      await fetch('http://localhost:5000/api/orders', {
+      await fetch('https://shubhlabh-production.up.railway.app/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -13,7 +13,7 @@ export default function OtherProducts() {
   const { showToast } = useToast()
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/other-products')
+    fetch('https://shubhlabh-production.up.railway.app/api/other-products')
       .then(r => r.json())
       .then(data => setItems(data))
       .catch(console.error)
