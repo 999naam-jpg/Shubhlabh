@@ -10,7 +10,7 @@ const links = [
   { label: 'Decoration', to: '/products', icon: '🎨' },
   { label: 'Backdrops', to: '/backdrops', icon: '🖼️' },
   { label: 'Cutouts', to: '/cutouts', icon: '✂️' },
-  { label: 'Extra', to: '/other-products', icon: '📦' },
+  { label: 'Extra items', to: '/other-products', icon: '📦' },
   { label: 'Contact', to: '/contact', icon: '📞' },
 ]
 
