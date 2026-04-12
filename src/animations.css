@@ -1,0 +1,157 @@
+/* Global transition base */
+*, *::before, *::after {
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+a, button, input, select, textarea {
+  transition: color 0.2s, background 0.2s, border-color 0.2s,
+              box-shadow 0.2s, opacity 0.2s, transform 0.15s !important;
+}
+
+/* Keyframes */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes cardRise {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes springPop {
+  0%   { transform: scale(0); }
+  65%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.07); }
+}
+@keyframes navSlide {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes overlayFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(60px) scale(0.9); }
+  to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes bounce {
+  0%   { transform: scale(0) rotate(-12deg); }
+  70%  { transform: scale(1.15) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Navbar */
+nav { animation: navSlide 0.4s ease both; }
+[class*="navItem"] { transition: background 0.18s, color 0.18s, padding-left 0.18s !important; }
+[class*="navItem"]:hover { padding-left: 1.1rem !important; }
+[class*="dropdown"] { animation: fadeDown 0.22s ease both; transform-origin: top right; }
+[class*="avatar"] { transition: transform 0.2s, border-color 0.2s !important; }
+[class*="avatar"]:hover { transform: scale(1.08) !important; }
+
+/* Hero */
+[class*="heroContent"], [class*="heroText"] { animation: slideRight 0.6s ease 0.05s both; }
+[class*="heroImage"], [class*="heroImgs"]   { animation: slideLeft  0.6s ease 0.15s both; }
+
+/* Cards */
+[class*="card"] {
+  animation: cardRise 0.45s ease both;
+  transition: transform 0.28s ease, box-shadow 0.28s ease !important;
+}
+[class*="card"]:nth-child(1)  { animation-delay: 0.05s; }
+[class*="card"]:nth-child(2)  { animation-delay: 0.10s; }
+[class*="card"]:nth-child(3)  { animation-delay: 0.15s; }
+[class*="card"]:nth-child(4)  { animation-delay: 0.20s; }
+[class*="card"]:nth-child(5)  { animation-delay: 0.25s; }
+[class*="card"]:nth-child(6)  { animation-delay: 0.30s; }
+[class*="card"]:nth-child(7)  { animation-delay: 0.35s; }
+[class*="card"]:nth-child(8)  { animation-delay: 0.40s; }
+[class*="card"]:nth-child(9)  { animation-delay: 0.45s; }
+[class*="card"]:nth-child(10) { animation-delay: 0.50s; }
+[class*="card"]:nth-child(11) { animation-delay: 0.55s; }
+[class*="card"]:nth-child(12) { animation-delay: 0.60s; }
+[class*="card"]:hover { transform: translateY(-6px) !important; box-shadow: 0 18px 44px rgba(124,58,237,0.13) !important; }
+[class*="card"] img, [class*="imgWrap"] img { transition: transform 0.38s ease !important; }
+[class*="card"]:hover img, [class*="imgWrap"]:hover img { transform: scale(1.06) !important; }
+
+/* Feature / step / testimonial */
+[class*="featureCard"]:nth-child(1) { animation: cardRise 0.5s ease 0.10s both; }
+[class*="featureCard"]:nth-child(2) { animation: cardRise 0.5s ease 0.20s both; }
+[class*="featureCard"]:nth-child(3) { animation: cardRise 0.5s ease 0.30s both; }
+[class*="featureCard"]:nth-child(4) { animation: cardRise 0.5s ease 0.40s both; }
+[class*="featureCard"]:nth-child(5) { animation: cardRise 0.5s ease 0.50s both; }
+[class*="step"]:nth-child(1) { animation: fadeUp 0.5s ease 0.10s both; }
+[class*="step"]:nth-child(2) { animation: fadeUp 0.5s ease 0.20s both; }
+[class*="step"]:nth-child(3) { animation: fadeUp 0.5s ease 0.30s both; }
+[class*="step"]:nth-child(4) { animation: fadeUp 0.5s ease 0.40s both; }
+[class*="testimonialCard"]:nth-child(1) { animation: cardRise 0.5s ease 0.10s both; }
+[class*="testimonialCard"]:nth-child(2) { animation: cardRise 0.5s ease 0.25s both; }
+[class*="testimonialCard"]:nth-child(3) { animation: cardRise 0.5s ease 0.40s both; }
+
+/* Buttons */
+button:active, a[class*="btn"]:active, a[class*="Btn"]:active { transform: scale(0.95) !important; }
+
+/* Qty control */
+[class*="qtyControl"] { animation: popIn 0.22s cubic-bezier(0.34,1.56,0.64,1) both; }
+[class*="qtyControl"] button { transition: background 0.15s, transform 0.1s !important; }
+[class*="qtyControl"] button:active { transform: scale(0.82) !important; }
+
+/* Trending badge */
+[class*="trending"], [class*="trendingBadge"] { animation: pulse 2.2s ease-in-out infinite; }
+
+/* Toast */
+[class*="toast"] { animation: toastIn 0.32s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+/* Modal / overlay */
+[class*="overlay"], [class*="lightbox"] { animation: overlayFade 0.22s ease both; }
+[class*="modal"]:not([class*="overlay"]), [class*="lightboxInner"] { animation: popIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+/* Forms */
+input:focus, textarea:focus, select:focus { box-shadow: 0 0 0 3px rgba(124,58,237,0.12) !important; }
+
+/* Success / empty icons */
+[class*="successIcon"], [class*="emptyIcon"] { animation: bounce 0.65s cubic-bezier(0.34,1.56,0.64,1) 0.1s both; }
+
+/* Sections */
+section { animation: fadeUp 0.5s ease both; }
+section h2 { animation: fadeUp 0.5s ease 0.05s both; }
+
+/* Footer links */
+footer a { transition: color 0.2s, transform 0.15s !important; display: inline-block; }
+footer a:hover { transform: translateX(3px) !important; }
+
+/* Filter buttons */
+[class*="filter"] { transition: all 0.18s ease !important; }
+[class*="filter"]:hover { transform: translateY(-1px) !important; }
+
+/* Admin stat cards */
+[class*="statCard"] { animation: cardRise 0.45s ease both; transition: transform 0.2s, box-shadow 0.2s !important; }
+[class*="statCard"]:hover { transform: translateY(-3px) !important; box-shadow: 0 8px 24px rgba(124,58,237,0.1) !important; }
+[class*="statCard"]:nth-child(1) { animation-delay: 0.05s; }
+[class*="statCard"]:nth-child(2) { animation-delay: 0.10s; }
+[class*="statCard"]:nth-child(3) { animation-delay: 0.15s; }
+[class*="statCard"]:nth-child(4) { animation-delay: 0.20s; }
+[class*="statCard"]:nth-child(5) { animation-delay: 0.25s; }
+[class*="statCard"]:nth-child(6) { animation-delay: 0.30s; }
+
+/* Table rows */
+tr { transition: background 0.15s !important; }

@@ -1,0 +1,222 @@
+.hero {
+  background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+  color: #fff;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+.hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.3rem; }
+.hero p { opacity: 0.8; font-size: 0.9rem; }
+
+.section {
+  padding: 2.5rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.itemsBox h2, .formBox h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+  color: #0f172a;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.9rem;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.itemInfo { flex: 1; }
+.source {
+  font-size: 0.7rem; font-weight: 700; color: #0ea5e9;
+  background: #e0f2fe; padding: 0.1rem 0.5rem; border-radius: 999px;
+}
+.itemInfo h3 { font-size: 0.92rem; font-weight: 600; margin: 0.3rem 0 0.2rem; }
+.itemInfo p { font-size: 0.82rem; color: #0ea5e9; font-weight: 600; }
+
+.qtyControl {
+  display: flex;
+  align-items: center;
+  border: 2px solid #0ea5e9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.qtyControl button {
+  background: #0ea5e9; color: #fff; border: none;
+  width: 30px; height: 30px; font-size: 1rem; font-weight: 700;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.qtyControl button:hover { background: #0284c7; }
+.qtyControl span { min-width: 30px; text-align: center; font-size: 0.9rem; font-weight: 700; color: #0ea5e9; }
+
+.remove { background: none; border: none; font-size: 1rem; cursor: pointer; opacity: 0.5; }
+.remove:hover { opacity: 1; }
+
+.noItems { color: #aaa; font-size: 0.9rem; text-align: center; padding: 1.5rem; }
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  background: #faf5ff;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+.totalRow strong { color: #0ea5e9; font-size: 1.1rem; }
+
+.formBox {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  position: sticky;
+  top: 80px;
+}
+
+.field { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.9rem; }
+.field label { font-size: 0.8rem; font-weight: 600; color: #555; }
+.row { display: flex; gap: 0.8rem; }
+.row .field { flex: 1; }
+
+input, textarea {
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  color: #0f172a;
+  width: 100%;
+  box-sizing: border-box;
+}
+input:focus, textarea:focus { border-color: #0ea5e9; }
+input[type="date"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  cursor: pointer;
+}
+textarea { resize: vertical; }
+
+/* Date Frame */
+.dateFrame {
+  border: 2px solid #bae6fd;
+  border-radius: 14px;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+.dateFrameTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0ea5e9;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.dateDivider {
+  height: 1px;
+  background: #bae6fd;
+}
+
+/* Date Cards */
+.dateRow {
+  display: flex;
+  gap: 0.7rem;
+  margin-bottom: 0;
+}
+.dateCard {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: #fff;
+  border: 1.5px solid #bae6fd;
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  flex: 1;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.dateCard:focus-within {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+}
+.dateIcon { font-size: 1.3rem; flex-shrink: 0; }
+.dateInputWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+}
+.dateLabel {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0ea5e9;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dateCard input[type="date"] {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0f172a;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+}
+
+.actions { display: flex; gap: 0.8rem; margin-top: 0.5rem; }
+.cancelBtn {
+  flex: 1; text-align: center;
+  padding: 0.75rem; border-radius: 8px;
+  border: 1.5px solid #e5e7eb; color: #555;
+  font-weight: 600; font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.cancelBtn:hover { border-color: #0ea5e9; color: #0ea5e9; }
+.saveBtn {
+  flex: 1; background: #0ea5e9; color: #fff;
+  border: none; padding: 0.75rem; border-radius: 8px;
+  font-size: 0.9rem; font-weight: 700; cursor: pointer;
+  transition: background 0.2s;
+}
+.saveBtn:hover { background: #0284c7; }
+.saveBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.empty {
+  min-height: 60vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.8rem; padding: 2rem;
+  text-align: center;
+}
+.icon { font-size: 3rem; }
+.empty h2 { font-size: 1.4rem; font-weight: 700; }
+.empty p { color: #666; }
+.btn {
+  background: #0ea5e9; color: #fff;
+  padding: 0.7rem 1.5rem; border-radius: 8px;
+  font-weight: 600; margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .layout { grid-template-columns: 1fr; }
+  .formBox { position: static; }
+  .row { flex-direction: column; }
+}

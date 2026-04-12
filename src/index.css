@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Mobile touch improvements */
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Prevent horizontal scroll */
+body { overflow-x: hidden; }
+
+/* Better tap targets on mobile */
+@media (max-width: 640px) {
+  button, a {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  input, select, textarea {
+    font-size: 16px !important; /* prevents iOS zoom on focus */
+  }
+}
+
+/* Bottom nav spacing on mobile - removed (nav is now at top) */
+
+/* Push content below fixed header — client site only */
+@media (min-width: 901px) {
+  body { padding-top: 64px; }
+  body:has(.adminShell) { padding-top: 0 !important; }
+}
+@media (max-width: 900px) {
+  body { padding-top: 108px; }
+  body:has(.adminShell) { padding-top: 0 !important; }
+}
+@media (max-width: 480px) {
+  body { padding-top: 96px; }
+  body:has(.adminShell) { padding-top: 0 !important; }
+}

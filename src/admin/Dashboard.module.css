@@ -1,0 +1,149 @@
+.heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1.2rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.statCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.statIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.statLabel { font-size: 0.78rem; color: #888; margin-bottom: 0.2rem; }
+.statValue { font-size: 1.3rem; font-weight: 800; }
+
+.section {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.sectionHeader h3 { font-size: 1rem; font-weight: 700; color: #0f172a; }
+.viewAll { font-size: 0.85rem; color: #0ea5e9; font-weight: 600; }
+.viewAll:hover { text-decoration: underline; }
+
+.empty { color: #aaa; text-align: center; padding: 2rem; font-size: 0.9rem; }
+
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.table th {
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  color: #888;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-bottom: 1px solid #f0f0f0;
+}
+.table td {
+  padding: 0.75rem 0.8rem;
+  border-bottom: 1px solid #f9f9f9;
+  color: #333;
+}
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: #faf5ff; }
+.orderId { color: #0ea5e9; font-weight: 600; font-size: 0.82rem; }
+
+@media (max-width: 640px) {
+  .statsGrid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .statCard { padding: 0.9rem; }
+  .statValue { font-size: 1.1rem; }
+  .tableWrap { overflow-x: auto; }
+  .table { font-size: 0.78rem; }
+}
+
+/* Pending Orders */
+.pendingSection {
+  border: 2px solid #fde68a;
+  background: #fffbeb;
+}
+.pendingCount {
+  background: #f59e0b;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.4rem;
+}
+.pendingHint { font-size: 0.8rem; color: #92400e; }
+
+.pendingList { display: flex; flex-direction: column; gap: 0.8rem; }
+
+.pendingCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #fff;
+  border: 1.5px solid #fde68a;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  flex-wrap: wrap;
+}
+.pendingInfo { flex: 1; min-width: 0; }
+.pendingId { font-size: 0.78rem; font-weight: 700; color: #0ea5e9; margin-bottom: 0.2rem; }
+.pendingName { font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.2rem; }
+.pendingMeta { font-size: 0.8rem; color: #64748b; margin-bottom: 0.3rem; }
+.pendingItems { font-size: 0.78rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.pendingRight { display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem; flex-shrink: 0; }
+.pendingTotal { font-size: 1.1rem; font-weight: 800; color: #0f172a; }
+.pendingActions { display: flex; gap: 0.5rem; }
+
+.confirmBtn {
+  background: #16a34a; color: #fff;
+  border: none; border-radius: 8px;
+  padding: 0.5rem 1rem; font-size: 0.85rem;
+  font-weight: 700; cursor: pointer;
+  transition: background 0.2s;
+}
+.confirmBtn:hover { background: #15803d; }
+
+.declineBtn {
+  background: #fee2e2; color: #dc2626;
+  border: none; border-radius: 8px;
+  padding: 0.5rem 1rem; font-size: 0.85rem;
+  font-weight: 700; cursor: pointer;
+  transition: background 0.2s;
+}
+.declineBtn:hover { background: #fecaca; }
+
+.rowActions { display: flex; gap: 0.4rem; }
+.confirmBtnSm, .declineBtnSm {
+  border: none; border-radius: 6px;
+  padding: 0.3rem 0.6rem; font-size: 0.82rem;
+  font-weight: 700; cursor: pointer;
+  transition: opacity 0.15s;
+}
+.confirmBtnSm { background: #dcfce7; color: #16a34a; }
+.declineBtnSm { background: #fee2e2; color: #dc2626; }
+.confirmBtnSm:hover, .declineBtnSm:hover { opacity: 0.75; }

@@ -1,0 +1,59 @@
+.wrap { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.preview {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.dropzone {
+  border: 2px dashed #bae6fd;
+  border-radius: 10px;
+  padding: 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  background: #faf5ff;
+  transition: border-color 0.2s, background 0.2s;
+}
+.dropzone:hover { border-color: #0ea5e9; background: #f3e8ff; }
+
+.icon { font-size: 1.8rem; display: block; margin-bottom: 0.3rem; }
+.dropzone p { font-size: 0.85rem; font-weight: 600; color: #0ea5e9; margin-bottom: 0.2rem; }
+.sub { font-size: 0.75rem; color: #aaa; }
+
+.progressWrap {
+  position: relative;
+  background: #e0f2fe;
+  border-radius: 6px;
+  height: 28px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progressBar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: #0ea5e9;
+  transition: width 0.2s;
+}
+.progressWrap span {
+  position: relative;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  z-index: 1;
+}
+
+.urlInput {
+  padding: 0.55rem 0.8rem;
+  border-radius: 8px;
+  border: 1.5px solid #e5e7eb;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  color: #555;
+}
+.urlInput:focus { border-color: #0ea5e9; }
