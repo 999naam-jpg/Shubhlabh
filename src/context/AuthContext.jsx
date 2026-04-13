@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { onAuthStateChanged, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, updateProfile } from 'firebase/auth'
+import { onAuthStateChanged, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 import {
   auth, googleProvider,
   createUserWithEmailAndPassword,
@@ -13,11 +13,6 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Handle redirect result on page load
-    getRedirectResult(auth).then(result => {
-      if (result?.user) setUser(result.user)
-    }).catch(() => {})
-
     const unsub = onAuthStateChanged(auth, u => {
       setUser(u)
       setLoading(false)
@@ -25,7 +20,18 @@ export function AuthProvider({ children }) {
     return unsub
   }, [])
 
-  const loginWithGoogle = () => signInWithRedirect(auth, googleProvider)
+  const loginWithGoogle = async () => {
+    try {
+      return await signInWithPopup(auth, googleProvider)
+    } catch (err) {
+      // Fallback to redirect if popup blocked
+      if (err.code === 'auth/popup-blocked' || err.code === 'auth/popup-closed-by-user') {
+        const { signInWithRedirect } = await import('firebase/auth')
+        return signInWithRedirect(auth, googleProvider)
+      }
+      throw err
+    }
+  }
 
   const registerWithEmail = async (email, password) => {
     const cred = await createUserWithEmailAndPassword(auth, email, password)
