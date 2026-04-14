@@ -35,7 +35,7 @@ export default function ImageUploader({ value, onChange }) {
 
   return (
     <div className={styles.wrap}>
-      {value && <img src={value} alt="preview" className={styles.preview} />}
+      {value && <img src={value} alt="preview" className={styles.preview} referrerPolicy="no-referrer" onError={e => e.target.style.display='none'} />}
 
       <div
         className={styles.dropzone}
@@ -67,7 +67,7 @@ export default function ImageUploader({ value, onChange }) {
       <input
         className={styles.urlInput}
         placeholder="Or paste image URL..."
-        value={value?.startsWith('http://localhost') || value?.startsWith('data:') ? '' : (value || '')}
+        value={value?.startsWith('data:') ? '' : (value || '')}
         onChange={e => onChange(e.target.value)}
       />
     </div>

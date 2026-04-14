@@ -9,7 +9,6 @@ export default function BackdropsPage() {
   const [backdrops, setBackdrops] = useState([])
   const [cutouts, setCutouts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [filter, setFilter] = useState('All')
   const [modal, setModal] = useState(null)
   const { addToCart, cart, updateQty, removeFromCart } = useCart()
   const { showToast } = useToast()
@@ -41,26 +40,11 @@ export default function BackdropsPage() {
       </section>
 
       <section className={styles.section}>
-        {/* Filter tabs */}
-        <div className={styles.filters}>
-          {[
-            { key: 'All', label: '🎨 All Items', count: allItems.length },
-            { key: 'Backdrop', label: '🖼️ Backdrops', count: backdrops.length },
-            { key: 'Cutout', label: '✂️ Cutouts', count: cutouts.length },
-          ].map(f => (
-            <button key={f.key}
-              className={`${styles.filterBtn} ${filter === f.key ? styles.filterActive : ''}`}
-              onClick={() => setFilter(f.key)}>
-              {f.label} <span className={styles.filterCount}>{f.count}</span>
-            </button>
-          ))}
-        </div>
-
         {loading ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#aaa' }}>Loading...</div>
         ) : (
           <div className={styles.grid}>
-            {filtered.map(item => {
+            {allItems.map(item => {
               const id = item._id
               const source = item._source
               const unavailable = item.stock === 'Unavailable'
