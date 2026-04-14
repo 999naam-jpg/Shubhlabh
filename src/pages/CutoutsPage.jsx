@@ -51,7 +51,7 @@ export default function CutoutsPage() {
                     {item.stock === 'Low Stock' && <div className={styles.low}>Low Stock</div>}
                     {item.trending && !unavailable && <div className={styles.trend}>🔥 Trending</div>}
                     {isAdmin && item.quantity !== undefined && (
-                      <span style={{ position:'absolute', bottom:'0.5rem', right:'0.5rem', background:'rgba(0,0,0,0.65)', color:'#fff', fontSize:'0.7rem', fontWeight:700, padding:'0.15rem 0.5rem', borderRadius:'999px' }}>
+                      <span style={{ position:'absolute', bottom:'0.5rem', right:'0.5rem', background:'#0ea5e9', color:'#fff', fontSize:'0.82rem', fontWeight:800, padding:'0.3rem 0.8rem', borderRadius:'999px', boxShadow:'0 2px 8px rgba(0,0,0,0.3)' }}>
                         📦 {item.quantity}
                       </span>
                     )}
