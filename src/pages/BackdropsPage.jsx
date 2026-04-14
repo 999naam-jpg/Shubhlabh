@@ -6,64 +6,92 @@ import { useToast } from '../context/ToastContext'
 import styles from './BackdropsPage.module.css'
 
 export default function BackdropsPage() {
-  const [items, setItems] = useState([])
+  const [backdrops, setBackdrops] = useState([])
+  const [cutouts, setCutouts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [filter, setFilter] = useState('All')
   const [modal, setModal] = useState(null)
   const { addToCart, cart, updateQty, removeFromCart } = useCart()
   const { showToast } = useToast()
 
   useEffect(() => {
-    api.getBackdrops()
-      .then(data => setItems(data))
+    Promise.all([api.getBackdrops(), api.getCutouts()])
+      .then(([b, c]) => {
+        setBackdrops(b.map(i => ({ ...i, _source: 'Backdrop' })))
+        setCutouts(c.map(i => ({ ...i, _source: 'Cutout' })))
+      })
       .catch(console.error)
       .finally(() => setLoading(false))
   }, [])
+
+  const allItems = [...backdrops, ...cutouts]
+  const filtered = filter === 'All' ? allItems
+    : filter === 'Backdrop' ? backdrops
+    : cutouts
 
   return (
     <main>
       <section className={styles.hero}>
         <div className={styles.heroText}>
-          <span className={styles.badge}>🖼️ Backdrop Walls</span>
-          <h1>Stunning Backdrops</h1>
-          <p>Transform any venue with our premium backdrop walls — perfect for ceremonies, receptions and photo booths.</p>
-          <Link to="/cutouts" className={styles.switchBtn}>Looking for Cutouts? →</Link>
+          <span className={styles.badge}>🖼️ Backdrops & Cutouts</span>
+          <h1>Backdrops & Cutouts</h1>
+          <p>Transform any venue with our premium backdrop walls and life-size cutouts.</p>
+          <Link to="/cutouts" className={styles.switchBtn}>View Cutouts Only →</Link>
         </div>
       </section>
 
       <section className={styles.section}>
+        {/* Filter tabs */}
+        <div className={styles.filters}>
+          {[
+            { key: 'All', label: '🎨 All Items', count: allItems.length },
+            { key: 'Backdrop', label: '🖼️ Backdrops', count: backdrops.length },
+            { key: 'Cutout', label: '✂️ Cutouts', count: cutouts.length },
+          ].map(f => (
+            <button key={f.key}
+              className={`${styles.filterBtn} ${filter === f.key ? styles.filterActive : ''}`}
+              onClick={() => setFilter(f.key)}>
+              {f.label} <span className={styles.filterCount}>{f.count}</span>
+            </button>
+          ))}
+        </div>
+
         {loading ? (
           <div style={{ textAlign: 'center', padding: '3rem', color: '#aaa' }}>Loading...</div>
         ) : (
           <div className={styles.grid}>
-            {items.map(item => {
+            {filtered.map(item => {
+              const id = item._id
+              const source = item._source
               const unavailable = item.stock === 'Unavailable'
-              const inCart = cart.find(i => i.id === item.id && i.source === 'Backdrop')
+              const inCart = cart.find(i => i.id === id && i.source === source)
               return (
-                <div key={item.id} className={`${styles.card} ${unavailable ? styles.disabled : ''}`} onClick={() => setModal(item)}>
+                <div key={id} className={`${styles.card} ${unavailable ? styles.disabled : ''}`} onClick={() => setModal(item)}>
                   <div className={styles.imgWrap}>
                     <img src={item.image} alt={item.name} />
                     {unavailable && <div className={styles.oos}>Out of Stock</div>}
                     {item.stock === 'Low Stock' && <div className={styles.low}>Low Stock</div>}
                     {item.trending && !unavailable && <div className={styles.trend}>🔥 Trending</div>}
+                    <span className={styles.typeBadge}>{source === 'Backdrop' ? '🖼️' : '✂️'}</span>
                   </div>
                   <div className={styles.body}>
                     <h3>{item.name}</h3>
                     {item.desc && <p>{item.desc}</p>}
-                    <div className={styles.meta}>
-                      <strong>{item.price}</strong>
-                    </div>
+                    <div className={styles.meta}><strong>{item.price}</strong></div>
                     {unavailable ? (
                       <div className={styles.oosBtn}>Out of Stock</div>
                     ) : inCart ? (
                       <div className={styles.qty} onClick={e => e.stopPropagation()}>
-                        <button onClick={() => inCart.qty === 1 ? removeFromCart(item.id, 'Backdrop') : updateQty(item.id, 'Backdrop', inCart.qty - 1)}>−</button>
+                        <button onClick={() => inCart.qty === 1 ? removeFromCart(id, source) : updateQty(id, source, inCart.qty - 1)}>−</button>
                         <span>{inCart.qty}</span>
-                        <button onClick={() => updateQty(item.id, 'Backdrop', inCart.qty + 1)}>+</button>
+                        <button onClick={() => updateQty(id, source, inCart.qty + 1)}>+</button>
                       </div>
                     ) : (
-                      <button className={styles.addBtn} onClick={e => { e.stopPropagation(); addToCart({ ...item, source: 'Backdrop' }, 1); showToast(`${item.name} added!`) }}>
-                        🛒 Add to Cart
-                      </button>
+                      <button className={styles.addBtn} onClick={e => {
+                        e.stopPropagation()
+                        addToCart({ ...item, id, source }, 1)
+                        showToast(`${item.name} added!`)
+                      }}>🛒 Add to Cart</button>
                     )}
                   </div>
                 </div>
@@ -81,13 +109,13 @@ export default function BackdropsPage() {
             <div className={styles.modalBody}>
               <h2>{modal.name}</h2>
               {modal.desc && <p>{modal.desc}</p>}
-              <div className={styles.modalMeta}>
-                <strong>{modal.price}</strong>
-              </div>
+              <div className={styles.modalMeta}><strong>{modal.price}</strong></div>
               {modal.stock !== 'Unavailable' && (
-                <button className={styles.addBtn} onClick={() => { addToCart({ ...modal, source: 'Backdrop' }); showToast(`${modal.name} added!`); setModal(null) }}>
-                  🛒 Add to Cart
-                </button>
+                <button className={styles.addBtn} onClick={() => {
+                  addToCart({ ...modal, id: modal._id, source: modal._source }, 1)
+                  showToast(`${modal.name} added!`)
+                  setModal(null)
+                }}>🛒 Add to Cart</button>
               )}
             </div>
           </div>
