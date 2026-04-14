@@ -180,3 +180,21 @@
 .returnReturned   { background: #dcfce7 !important; color: #16a34a !important; border-color: #16a34a !important; font-weight: 700 !important; }
 .returnPartial    { background: #dbeafe !important; color: #2563eb !important; border-color: #2563eb !important; font-weight: 700 !important; }
 .returnNot        { background: #fee2e2 !important; color: #dc2626 !important; border-color: #dc2626 !important; font-weight: 700 !important; }
+
+/* Mobile responsive fixes */
+@media (max-width: 600px) {
+  .actionRow {
+    flex-direction: column;
+    gap: 1rem;
+    overflow-x: visible;
+  }
+  .statusBtns { flex-wrap: wrap; }
+  .statusBtn { font-size: 0.75rem; padding: 0.35rem 0.7rem; }
+  .twoCol { grid-template-columns: 1fr; }
+  .cardHeader { flex-wrap: wrap; gap: 0.5rem; }
+  .headerLeft { flex-wrap: wrap; gap: 0.3rem; }
+  .headerRight { flex-wrap: wrap; gap: 0.4rem; }
+  .meta { font-size: 0.75rem; }
+  .total { font-size: 0.95rem; }
+  .invoiceBtn, .whatsappBtn { padding: 0.25rem 0.5rem; font-size: 0.72rem; }
+}

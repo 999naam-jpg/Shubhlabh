@@ -12,8 +12,8 @@ export default function Cart() {
   const [form, setForm] = useState({
     name: '', phone: '', email: '',
     date: '', pickupDate: '', returnDate: '',
-    address: '', homeAddress: '', note: '',
-    deposit: ''
+    address: '', note: '',
+    deposit: '', babyGender: ''
   })
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
@@ -154,6 +154,21 @@ export default function Cart() {
               <div className={styles.field}>
                 <label>Delivery / Venue Address *</label>
                 <textarea name="address" required rows={2} placeholder="Venue / delivery address" value={form.address} onChange={handleChange} />
+              </div>
+              <div className={styles.field}>
+                <label>👶 Baby Gender (optional)</label>
+                <div className={styles.genderRow}>
+                  {['Baby Boy', 'Baby Girl', 'Twins'].map(g => (
+                    <button
+                      key={g}
+                      type="button"
+                      className={`${styles.genderBtn} ${form.babyGender === g ? styles.genderActive : ''}`}
+                      onClick={() => setForm({ ...form, babyGender: form.babyGender === g ? '' : g })}
+                    >
+                      {g === 'Baby Boy' ? '👦 Baby Boy' : g === 'Baby Girl' ? '👧 Baby Girl' : '👶👶 Twins'}
+                    </button>
+                  ))}
+                </div>
               </div>
               <div className={styles.field}>
                 <label>Special Notes</label>

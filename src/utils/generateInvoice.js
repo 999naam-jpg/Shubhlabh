@@ -331,6 +331,7 @@ export function sendInvoiceWhatsApp(order) {
   const c = order.customer || {}
   // Clean phone — remove spaces, dashes, brackets; add country code if missing
   let phone = (c.phone || '').replace(/[\s\-().+]/g, '')
+  if (!phone) { alert('No phone number found for this customer.'); return }
   if (phone.startsWith('0')) phone = '91' + phone.slice(1)
   if (!phone.startsWith('91')) phone = '91' + phone
 
@@ -365,5 +366,11 @@ export function sendInvoiceWhatsApp(order) {
   ].join('\n')
 
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
-  window.open(url, '_blank')
+  const a = document.createElement('a')
+  a.href = url
+  a.target = '_blank'
+  a.rel = 'noopener noreferrer'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
 }
