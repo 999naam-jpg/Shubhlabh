@@ -107,20 +107,12 @@ export default function AdminOtherProducts() {
             {/* Status */}
             <div className={styles.modalSection}>
               <span className={styles.sectionLabel}>Status</span>
-              <div className={styles.statusRow}>
-                <div className={styles.formField} style={{ flex: 1 }}>
-                  <label>Stock Status</label>
-                  <select value={form.stock} onChange={e => setForm({ ...form, stock: e.target.value })}>
-                    {STOCK.map(s => <option key={s}>{s}</option>)}
-                  </select>
-                </div>
-                <label className={styles.trendingToggle}>
-                  <input type="checkbox" checked={form.trending} onChange={e => setForm({ ...form, trending: e.target.checked })} />
-                  <span className={`${styles.trendingBox} ${form.trending ? styles.trendingOn : ''}`}>
-                    🔥 {form.trending ? 'Trending' : 'Not Trending'}
-                  </span>
-                </label>
-              </div>
+              <label className={styles.trendingToggle}>
+                <input type="checkbox" checked={form.trending} onChange={e => setForm({ ...form, trending: e.target.checked })} />
+                <span className={`${styles.trendingBox} ${form.trending ? styles.trendingOn : ''}`}>
+                  🔥 {form.trending ? 'Trending' : 'Not Trending'}
+                </span>
+              </label>
             </div>
 
             {/* Images */}
