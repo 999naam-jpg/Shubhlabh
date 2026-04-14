@@ -24,9 +24,6 @@ export default function BackdropsPage() {
   }, [])
 
   const allItems = [...backdrops, ...cutouts]
-  const filtered = filter === 'All' ? allItems
-    : filter === 'Backdrop' ? backdrops
-    : cutouts
 
   return (
     <main>
