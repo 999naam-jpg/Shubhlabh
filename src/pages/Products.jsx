@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
-import { createPortal } from 'react-dom'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../context/ToastContext'
+import { useAuth } from '../context/AuthContext'
 import styles from './Products.module.css'
 import { api } from '../api'
 import PhotoCarousel from '../components/PhotoCarousel'
+import { createPortal } from 'react-dom'
 
-function ProductModal({ p, onClose, addToCart, showToast, cart, updateQty, removeFromCart }) {
+const ADMIN_EMAIL = 'monilkumbhani@gmail.com'
+
+function ProductModal({ p, onClose, addToCart, showToast, cart, updateQty, removeFromCart, isAdmin }) {
   const unavailable = p.stock === 'Unavailable'
   const inCart = cart.find(i => i.id === p._id && i.source === 'Product')
 
@@ -50,7 +53,7 @@ function ProductModal({ p, onClose, addToCart, showToast, cart, updateQty, remov
               color: p.stock === 'Available' ? '#16a34a' : p.stock === 'Low Stock' ? '#d97706' : '#dc2626',
               padding: '0.25rem 0.8rem', borderRadius: '999px', fontSize: '0.78rem', fontWeight: 700
             }}>{p.stock}</span>
-            {p.quantity > 0 && <span className={styles.modalQty}>Qty: {p.quantity}</span>}
+            {isAdmin && p.quantity > 0 && <span className={styles.modalQty}>Qty: {p.quantity}</span>}
           </div>
 
           {/* Included items */}
@@ -133,6 +136,8 @@ export default function Products() {
   const [selected, setSelected] = useState(null)
   const { addToCart, cart, updateQty, removeFromCart } = useCart()
   const { showToast } = useToast()
+  const { user } = useAuth()
+  const isAdmin = user?.email === ADMIN_EMAIL
 
   useEffect(() => {
     Promise.all([api.getProducts(), api.getCategories()])
@@ -184,6 +189,7 @@ export default function Products() {
           cart={cart}
           updateQty={updateQty}
           removeFromCart={removeFromCart}
+          isAdmin={isAdmin}
         />
       )}
     </main>

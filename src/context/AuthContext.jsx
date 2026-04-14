@@ -35,10 +35,12 @@ export function AuthProvider({ children }) {
 
   const registerWithEmail = async (email, password) => {
     const cred = await createUserWithEmailAndPassword(auth, email, password)
-    // Set default name from email + default avatar
     const defaultName = email.split('@')[0]
     const defaultPhoto = `https://ui-avatars.com/api/?name=${encodeURIComponent(defaultName)}&background=7c3aed&color=fff&rounded=true`
     await updateProfile(cred.user, { displayName: defaultName, photoURL: defaultPhoto })
+    // Send verification email
+    const { sendEmailVerification } = await import('firebase/auth')
+    await sendEmailVerification(cred.user)
     return cred
   }
 

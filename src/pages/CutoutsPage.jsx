@@ -37,9 +37,9 @@ export default function CutoutsPage() {
           <div className={styles.grid}>
             {items.map(item => {
               const unavailable = item.stock === 'Unavailable'
-              const inCart = cart.find(i => i.id === item.id && i.source === 'Cutout')
+              const inCart = cart.find(i => i.id === item._id && i.source === 'Cutout')
               return (
-                <div key={item.id} className={`${styles.card} ${unavailable ? styles.disabled : ''}`} onClick={() => setModal(item)}>
+                <div key={item._id} className={`${styles.card} ${unavailable ? styles.disabled : ''}`} onClick={() => setModal(item)}>
                   <div className={styles.imgWrap}>
                     <img src={item.image} alt={item.name} />
                     {unavailable && <div className={styles.oos}>Out of Stock</div>}
@@ -56,12 +56,12 @@ export default function CutoutsPage() {
                       <div className={styles.oosBtn}>Out of Stock</div>
                     ) : inCart ? (
                       <div className={styles.qty} onClick={e => e.stopPropagation()}>
-                        <button onClick={() => inCart.qty === 1 ? removeFromCart(item.id, 'Cutout') : updateQty(item.id, 'Cutout', inCart.qty - 1)}>−</button>
+                        <button onClick={() => inCart.qty === 1 ? removeFromCart(item._id, 'Cutout') : updateQty(item._id, 'Cutout', inCart.qty - 1)}>−</button>
                         <span>{inCart.qty}</span>
-                        <button onClick={() => updateQty(item.id, 'Cutout', inCart.qty + 1)}>+</button>
+                        <button onClick={() => updateQty(item._id, 'Cutout', inCart.qty + 1)}>+</button>
                       </div>
                     ) : (
-                      <button className={styles.addBtn} onClick={e => { e.stopPropagation(); addToCart({ ...item, source: 'Cutout' }, 1); showToast(`${item.name} added!`) }}>
+                      <button className={styles.addBtn} onClick={e => { e.stopPropagation(); addToCart({ ...item, id: item._id, source: 'Cutout' }, 1); showToast(`${item.name} added!`) }}>
                         🛒 Add to Cart
                       </button>
                     )}
@@ -85,7 +85,7 @@ export default function CutoutsPage() {
                 <strong>{modal.price}</strong>
               </div>
               {modal.stock !== 'Unavailable' && (
-                <button className={styles.addBtn} onClick={() => { addToCart({ ...modal, source: 'Cutout' }); showToast(`${modal.name} added!`); setModal(null) }}>
+                <button className={styles.addBtn} onClick={() => { addToCart({ ...modal, id: modal._id, source: 'Cutout' }); showToast(`${modal.name} added!`); setModal(null) }}>
                   🛒 Add to Cart
                 </button>
               )}

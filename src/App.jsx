@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import IntroAnimation from './components/IntroAnimation'
+import TopLoader from './components/TopLoader'
 import Home from './pages/Home'
 import Products from './pages/Products'
 import Contact from './pages/Contact'
@@ -39,6 +40,7 @@ export default function App() {
   return (
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       {showIntro && <IntroAnimation onDone={handleIntroDone} />}
+      <TopLoader />
       <ScrollToTop />
       <Routes>
         {/* Public site */}

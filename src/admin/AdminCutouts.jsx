@@ -81,27 +81,47 @@ export default function AdminCutouts() {
       {modal && (
         <div className={styles.overlay} onClick={() => setModal(null)}>
           <div className={styles.modal} onClick={e => e.stopPropagation()}>
-            <h3>{modal === 'add' ? 'Add Cutout' : 'Edit Cutout'}</h3>
-            <div className={styles.formGrid}>
-              <div className={styles.formField} style={{ gridColumn: 'span 2' }}><label>Name *</label><input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></div>
-              <div className={styles.formField}><label>Price *</label><input value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} placeholder="e.g. ₹500/number" /></div>
-              <div className={styles.formField}><label>Quantity</label><input type="number" min="0" value={form.quantity} onChange={e => setForm({ ...form, quantity: e.target.value === '' ? '' : Number(e.target.value) })} /></div>
-              <div className={styles.formField}><label>Stock Status</label>
-                <select value={form.stock} onChange={e => setForm({ ...form, stock: e.target.value })}>
-                  {STOCK.map(s => <option key={s}>{s}</option>)}
-                </select>
+            <div className={styles.modalHeader}>
+              <div>
+                <h3>{modal === 'add' ? '➕ Add Cutout' : '✏️ Edit Cutout'}</h3>
+                <p>{modal === 'add' ? 'Fill in the details' : `Editing: ${form.name}`}</p>
+              </div>
+              <button className={styles.modalClose} onClick={() => setModal(null)}>✕</button>
+            </div>
+            <div className={styles.modalSection}>
+              <span className={styles.sectionLabel}>Basic Info</span>
+              <div className={styles.formGrid}>
+                <div className={styles.formField} style={{ gridColumn: 'span 2' }}><label>Name *</label><input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></div>
+                <div className={styles.formField}><label>Price *</label><input value={form.price} onChange={e => setForm({ ...form, price: e.target.value })} placeholder="e.g. ₹500/number" /></div>
+                <div className={styles.formField}><label>Quantity</label><input type="number" min="0" value={form.quantity} onChange={e => setForm({ ...form, quantity: e.target.value === '' ? '' : Number(e.target.value) })} /></div>
               </div>
             </div>
-            <div className={styles.formField}><label>Image Upload</label><ImageUploader value={form.image} onChange={v => setForm({ ...form, image: v })} /></div>
-            <div className={styles.formField}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.trending} onChange={e => setForm({ ...form, trending: e.target.checked })} />
-                🔥 Mark as Trending
-              </label>
+            <div className={styles.modalSection}>
+              <span className={styles.sectionLabel}>Status</span>
+              <div className={styles.statusRow}>
+                <div className={styles.formField} style={{ flex: 1 }}>
+                  <label>Stock Status</label>
+                  <select value={form.stock} onChange={e => setForm({ ...form, stock: e.target.value })}>
+                    {STOCK.map(s => <option key={s}>{s}</option>)}
+                  </select>
+                </div>
+                <label className={styles.trendingToggle}>
+                  <input type="checkbox" checked={form.trending} onChange={e => setForm({ ...form, trending: e.target.checked })} />
+                  <span className={`${styles.trendingBox} ${form.trending ? styles.trendingOn : ''}`}>
+                    🔥 {form.trending ? 'Trending' : 'Not Trending'}
+                  </span>
+                </label>
+              </div>
             </div>
-            <div className={styles.modalActions}>
+            <div className={styles.modalSection}>
+              <span className={styles.sectionLabel}>Images</span>
+              <div className={styles.formField}><label>Cover Image</label><ImageUploader value={form.image} onChange={v => setForm({ ...form, image: v })} /></div>
+            </div>
+            <div className={styles.modalFooter}>
               <button className={styles.cancelBtn} onClick={() => setModal(null)}>Cancel</button>
-              <button className={styles.saveBtn} onClick={handleSave}>Save</button>
+              <button className={styles.saveBtn} onClick={handleSave}>
+                {modal === 'add' ? '➕ Add Cutout' : '💾 Save Changes'}
+              </button>
             </div>
           </div>
         </div>

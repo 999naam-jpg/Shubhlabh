@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { auth } from '../firebase'
 import { useToast } from '../context/ToastContext'
 import styles from './Login.module.css'
 
@@ -42,8 +43,27 @@ export default function Login() {
       const cred = isRegister
         ? await registerWithEmail(email, password)
         : await loginWithEmail(email, password)
+
+      if (isRegister) {
+        // Show verification message, don't navigate
+        setError('')
+        setLoading(false)
+        setIsRegister(false)
+        // Show success message
+        alert(`✅ Account created! A verification email has been sent to ${email}. Please verify before signing in.`)
+        return
+      }
+
+      // Check email verified for login
+      if (!cred.user.emailVerified) {
+        await auth.signOut()
+        setError('Please verify your email before signing in. Check your inbox.')
+        setLoading(false)
+        return
+      }
+
       const name = cred.user.displayName || email.split('@')[0]
-      showToast(isRegister ? `Account created! Welcome, ${name} 🎉` : `Welcome back, ${name}! 👋`)
+      showToast(`Welcome back, ${name}! 👋`)
     } catch (err) {
       setError(friendlyError(err.code))
     } finally { setLoading(false) }
@@ -77,7 +97,20 @@ export default function Login() {
           ))}
         </div>
 
-        {error && <div className={styles.error}>{error}</div>}
+        {error && <div className={styles.error}>{error}
+          {error.includes('verify') && (
+            <button type="button" style={{ marginLeft: '0.5rem', background: 'none', border: 'none', color: '#0ea5e9', cursor: 'pointer', fontSize: '0.82rem', fontWeight: 600 }}
+              onClick={async () => {
+                try {
+                  const { sendEmailVerification } = await import('firebase/auth')
+                  const cred = await loginWithEmail(email, password)
+                  await sendEmailVerification(cred.user)
+                  await auth.signOut()
+                  setError('Verification email resent! Check your inbox.')
+                } catch {}
+              }}>Resend email</button>
+          )}
+        </div>}
 
         {/* Google */}
         {tab === 'Google' && (

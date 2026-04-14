@@ -9,7 +9,6 @@ export default function Footer() {
         {/* Brand */}
         <div className={styles.brand}>
           <div className={styles.brandLogo}>
-            <img src="/551402660_17843895663577377_7895316719802754113_n.jpg" alt="Shubh Labh Event" className={styles.logoImg} />
             <span>Shubh Labh Event</span>
           </div>
           <p>Premium event decoration rentals for weddings, birthdays, corporate events and more. Delivered with care.</p>
