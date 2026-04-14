@@ -95,7 +95,7 @@ function ProductModal({ p, onClose, addToCart, showToast, cart, updateQty, remov
   )
 }
 
-function ProductCard({ p, onOpen, cart }) {
+function ProductCard({ p, onOpen, cart, isAdmin }) {
   const unavailable = p.stock === 'Unavailable'
   const inCart = cart.find(i => i.id === p._id && i.source === 'Product')
   return (
@@ -107,6 +107,9 @@ function ProductCard({ p, onOpen, cart }) {
             {unavailable && <div className={styles.outOfStock}>Out of Stock</div>}
             {p.stock === 'Low Stock' && <div className={styles.lowStock}>Low Stock</div>}
             {p.trending && !unavailable && <div className={styles.trending}>🔥 Trending</div>}
+            {isAdmin && p.quantity !== undefined && (
+              <div className={styles.stockBadge}>📦 {p.quantity}</div>
+            )}
           </div>
       }
       <div className={styles.body}>
@@ -173,7 +176,7 @@ export default function Products() {
             </div>
             <div className={styles.grid}>
               {filtered.map(p => (
-                <ProductCard key={p._id} p={p} onOpen={setSelected} cart={cart} />
+                <ProductCard key={p._id} p={p} onOpen={setSelected} cart={cart} isAdmin={isAdmin} />
               ))}
             </div>
           </>

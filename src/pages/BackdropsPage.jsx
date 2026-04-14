@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 import { api } from '../api'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../context/ToastContext'
+import { useAuth } from '../context/AuthContext'
 import styles from './BackdropsPage.module.css'
+
+const ADMIN_EMAIL = 'monilkumbhani@gmail.com'
 
 export default function BackdropsPage() {
   const [backdrops, setBackdrops] = useState([])
@@ -12,6 +15,8 @@ export default function BackdropsPage() {
   const [modal, setModal] = useState(null)
   const { addToCart, cart, updateQty, removeFromCart } = useCart()
   const { showToast } = useToast()
+  const { user } = useAuth()
+  const isAdmin = user?.email === ADMIN_EMAIL
 
   useEffect(() => {
     Promise.all([api.getBackdrops(), api.getCutouts()])
@@ -54,6 +59,11 @@ export default function BackdropsPage() {
                     {item.stock === 'Low Stock' && <div className={styles.low}>Low Stock</div>}
                     {item.trending && !unavailable && <div className={styles.trend}>🔥 Trending</div>}
                     <span className={styles.typeBadge}>{source === 'Backdrop' ? '🖼️' : '✂️'}</span>
+                    {isAdmin && item.quantity !== undefined && (
+                      <span style={{ position:'absolute', bottom:'0.5rem', right:'0.5rem', background:'rgba(0,0,0,0.65)', color:'#fff', fontSize:'0.7rem', fontWeight:700, padding:'0.15rem 0.5rem', borderRadius:'999px' }}>
+                        📦 {item.quantity}
+                      </span>
+                    )}
                   </div>
                   <div className={styles.body}>
                     <h3>{item.name}</h3>

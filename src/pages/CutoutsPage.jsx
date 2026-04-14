@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom'
 import { api } from '../api'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../context/ToastContext'
+import { useAuth } from '../context/AuthContext'
 import styles from './CutoutsPage.module.css'
+
+const ADMIN_EMAIL = 'monilkumbhani@gmail.com'
 
 export default function CutoutsPage() {
   const [items, setItems] = useState([])
@@ -11,6 +14,8 @@ export default function CutoutsPage() {
   const [modal, setModal] = useState(null)
   const { addToCart, cart, updateQty, removeFromCart } = useCart()
   const { showToast } = useToast()
+  const { user } = useAuth()
+  const isAdmin = user?.email === ADMIN_EMAIL
 
   useEffect(() => {
     api.getCutouts()
@@ -45,6 +50,11 @@ export default function CutoutsPage() {
                     {unavailable && <div className={styles.oos}>Out of Stock</div>}
                     {item.stock === 'Low Stock' && <div className={styles.low}>Low Stock</div>}
                     {item.trending && !unavailable && <div className={styles.trend}>🔥 Trending</div>}
+                    {isAdmin && item.quantity !== undefined && (
+                      <span style={{ position:'absolute', bottom:'0.5rem', right:'0.5rem', background:'rgba(0,0,0,0.65)', color:'#fff', fontSize:'0.7rem', fontWeight:700, padding:'0.15rem 0.5rem', borderRadius:'999px' }}>
+                        📦 {item.quantity}
+                      </span>
+                    )}
                   </div>
                   <div className={styles.body}>
                     <h3>{item.name}</h3>
