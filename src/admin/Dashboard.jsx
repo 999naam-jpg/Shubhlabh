@@ -1,5 +1,6 @@
 import { useCart } from '../context/CartContext'
 import { Link, useNavigate } from 'react-router-dom'
+import BabyBadge from './BabyBadge'
 import styles from './Dashboard.module.css'
 
 const allProducts = 12
@@ -56,27 +57,42 @@ export default function Dashboard() {
                   <p className={styles.pendingName}>{o.customer?.name}</p>
                   <p className={styles.pendingMeta}>
                     📞 {o.customer?.phone}
+                    {o.customer?.email && <> &nbsp;·&nbsp; ✉️ {o.customer.email}</>}
+                  </p>
+                  <p className={styles.pendingMeta}>
+                    {o.customer?.date && <>🎉 {o.customer.date}</>}
                     {o.customer?.pickupDate && <> &nbsp;·&nbsp; 📦 {o.customer.pickupDate}</>}
                     {o.customer?.returnDate && <> &nbsp;·&nbsp; 🔄 {o.customer.returnDate}</>}
                   </p>
-                  <p className={styles.pendingItems}>
-                    {o.items?.map(i => `${i.name} ×${i.qty}`).join(', ')}
-                  </p>
+                  {o.customer?.address && <p className={styles.pendingMeta}>📍 {o.customer.address}</p>}
+                  {o.customer?.babyGender && <p className={styles.pendingMeta}><BabyBadge gender={o.customer.babyGender} /></p>}
+                  {o.customer?.note && <p className={styles.pendingMeta}>📝 {o.customer.note}</p>}
+
+                  {/* Product items with images */}
+                  <div className={styles.pendingItemList}>
+                    {o.items?.map((item, i) => (
+                      <div key={i} className={styles.pendingItemRow}>
+                        {item.image && <img src={item.image} alt={item.name} className={styles.pendingItemImg} />}
+                        <div>
+                          <p className={styles.pendingItemName}>{item.name}</p>
+                          <p className={styles.pendingItemMeta}>{item.source} · ×{item.qty} · {item.price}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 <div className={styles.pendingRight}>
                   <p className={styles.pendingTotal}>₹{o.total?.toLocaleString()}</p>
+                  {o.deposit > 0 && <p style={{ fontSize: '0.78rem', color: '#16a34a', fontWeight: 600 }}>Deposit: ₹{o.deposit?.toLocaleString()}</p>}
                   <div className={styles.pendingActions}>
-                    <button
-                      className={styles.confirmBtn}
-                      onClick={async () => {
-                        await updateOrderStatus(o._mongoId, 'Confirmed')
-                        navigate('/admin/calendar')
-                      }}
-                    >✅ Confirm</button>
-                    <button
-                      className={styles.declineBtn}
-                      onClick={() => updateOrderStatus(o._mongoId, 'Cancelled')}
-                    >❌ Decline</button>
+                    <button className={styles.confirmBtn}
+                      onClick={async () => { await updateOrderStatus(o._mongoId, 'Confirmed'); navigate('/admin/calendar') }}>
+                      ✅ Confirm
+                    </button>
+                    <button className={styles.declineBtn}
+                      onClick={() => updateOrderStatus(o._mongoId, 'Cancelled')}>
+                      ❌ Decline
+                    </button>
                   </div>
                 </div>
               </div>

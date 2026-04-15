@@ -156,7 +156,7 @@ export default function Cart() {
                 <textarea name="address" required rows={2} placeholder="Venue / delivery address" value={form.address} onChange={handleChange} />
               </div>
               <div className={styles.field}>
-                <label>👶 Baby Gender (optional)</label>
+                <label>👶 Baby Boy / Baby Girl</label>
                 <div className={styles.genderRow}>
                   {['Baby Boy', 'Baby Girl', 'Twins'].map(g => (
                     <button

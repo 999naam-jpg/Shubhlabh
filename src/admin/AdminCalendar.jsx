@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import { useCart } from '../context/CartContext'
 import { StatusBadge } from './Dashboard'
+import BabyBadge from './BabyBadge'
 import { generateInvoice, sendInvoiceWhatsApp } from '../utils/generateInvoice'
 import styles from './AdminCalendar.module.css'
 
@@ -330,6 +331,7 @@ function OrderRow({ order, expanded, onToggle, onOrderDone, onPickupDone, styles
                 {order.customer?.returnDate  && <InfoRow label="Return" value={order.customer.returnDate} styles={styles} />}
                 {order.customer?.address     && <InfoRow label="Venue"  value={order.customer.address} styles={styles} />}
                 {order.customer?.homeAddress && <InfoRow label="Home"   value={order.customer.homeAddress} styles={styles} />}
+                {order.customer?.babyGender  && <InfoRow label="👶 Baby" value={<BabyBadge gender={order.customer.babyGender} />} styles={styles} />}
                 {order.customer?.note        && <InfoRow label="Notes"  value={order.customer.note} styles={styles} />}
               </div>
               <h5 style={{ marginTop: '1rem' }}>💳 Payment</h5>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { StatusBadge } from './Dashboard'
+import BabyBadge from './BabyBadge'
 import { generateInvoice, sendInvoiceWhatsApp } from '../utils/generateInvoice'
 import styles from './AdminOrders.module.css'
 
@@ -169,7 +170,7 @@ export default function AdminOrders() {
                         <Row label="Event Date" value={order.customer.date} />
                         {order.customer.pickupDate && <Row label="Pickup" value={order.customer.pickupDate} />}
                         {order.customer.returnDate && <Row label="Return" value={order.customer.returnDate} />}
-                        <Row label="Address" value={order.customer.address} />
+                        {order.customer.babyGender && <Row label="👶 Baby" value={<BabyBadge gender={order.customer.babyGender} />} />}
                         {order.customer.note && <Row label="Notes" value={order.customer.note} />}
                       </div>
 
